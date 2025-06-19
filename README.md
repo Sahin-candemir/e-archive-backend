@@ -19,6 +19,8 @@ JWT entegrasyonu sayesinde kullanıcı yetkilendirilir.
 - Map Struct
 ---
 ## Özellikler
+* Kullanıcı Kayıt ve Giriş işlemleri haricinde istek atılırken Authorization headers içerisinde ``Bearer <JWT-TOKEN>`` eklenmelidir.
+* JWT Token kullanıcı giriş yaptıktan sonra cevap olarak dönmektedir.
 * Kullanıcı kayıt (``POST /auth/register``)
 * Kullanıcı giriş (``POST /auth/login``)
 ---
