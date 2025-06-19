@@ -37,3 +37,6 @@ JWT entegrasyonu sayesinde kullanıcı yetkilendirilir.
 * Klasörü sil (``DELETE /folders/{id}``)
 ---
 * Dosya Paylaşma Özellikleri henüz eklenmedi.
+---
+## Veritabanı ER diagramı
+![e-archiv_ERD.png](E_commerce_ERD.png)
