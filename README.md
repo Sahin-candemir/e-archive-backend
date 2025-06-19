@@ -39,4 +39,4 @@ JWT entegrasyonu sayesinde kullanıcı yetkilendirilir.
 * Dosya Paylaşma Özellikleri henüz eklenmedi.
 ---
 ## Veritabanı ER diagramı
-![e-archiv_ERD.png](E_commerce_ERD.png)
+![e-archiv_ERD.png](e-archiv_ERD.png)
