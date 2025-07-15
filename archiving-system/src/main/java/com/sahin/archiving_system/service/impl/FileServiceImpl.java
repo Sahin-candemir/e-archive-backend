@@ -88,6 +88,11 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    public File getFileById(Long fileId) throws FileNotFoundException {
+        return repository.findById(fileId).orElseThrow(() -> new FileNotFoundException("File not found with id :" +fileId));
+    }
+
+    @Override
     public void updateFile(MultipartFile multipartFile) throws FileNotFoundException {
         File file = repository.findByName(multipartFile.getOriginalFilename())
                 .orElseThrow(() -> new FileNotFoundException("File not found with name: "+ multipartFile.getOriginalFilename()));

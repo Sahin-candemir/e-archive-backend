@@ -3,6 +3,7 @@ package com.sahin.archiving_system.service.impl;
 import com.sahin.archiving_system.dto.FileDto;
 import com.sahin.archiving_system.dto.FolderContentDto;
 import com.sahin.archiving_system.dto.FolderDto;
+import com.sahin.archiving_system.exception.ResourceNotFoundException;
 import com.sahin.archiving_system.mapper.FolderMapper;
 import com.sahin.archiving_system.model.File;
 import com.sahin.archiving_system.model.Folder;
@@ -35,6 +36,7 @@ public class FolderServiceImpl implements FolderService {
         Folder folder = new Folder();
         folder.setName(name);
         folder.setUser(user);
+        folder.setInBox(false);
         folder.setParent(parent);
 
         return folderRepository.save(folder);
@@ -82,6 +84,22 @@ public class FolderServiceImpl implements FolderService {
     @Override
     public Optional<Folder> getFolderByFolderIdAndUser(Long id, User currentUser) {
         return folderRepository.findByIdAndUser(id, currentUser);
+    }
+
+    @Override
+    public Folder getInBoxFolderByUser(User user) {
+        return folderRepository.findByUserAndIsInBoxTrue(user).orElseThrow(() -> new ResourceNotFoundException("Folder Not found."));
+    }
+
+    @Override
+    public Folder createInBoxFolder(User user) {
+        Folder folder = new Folder();
+        folder.setInBox(true);
+        folder.setName("Gelen Kutusu");
+        folder.setUser(user);
+        folder.setParent(null);
+
+        return folderRepository.save(folder);
     }
 
     public FolderServiceImpl(FolderRepository folderRepository, FileRepository fileRepository, FolderMapper folderMapper) {

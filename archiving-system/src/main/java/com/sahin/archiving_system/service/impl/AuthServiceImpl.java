@@ -9,10 +9,12 @@ import com.sahin.archiving_system.model.User;
 import com.sahin.archiving_system.repository.UserRepository;
 import com.sahin.archiving_system.security.JwtService;
 import com.sahin.archiving_system.service.AuthService;
+import com.sahin.archiving_system.service.FolderService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -22,21 +24,25 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserResponseMapper userResponseMapper;
     private final JwtService jwtService;
-    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, UserResponseMapper userResponseMapper, JwtService jwtService) {
+    private final FolderService folderService;
+    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, UserResponseMapper userResponseMapper, JwtService jwtService, FolderService folderService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.userResponseMapper = userResponseMapper;
         this.jwtService = jwtService;
+        this.folderService = folderService;
     }
 
     @Override
+    @Transactional
     public UserRegisterResponse register(UserRegisterRequest userRegisterRequest) {
         User user = new User();
         user.setEmail(userRegisterRequest.getEmail());
         user.setFullName(userRegisterRequest.getFullName());
         user.setPassword(passwordEncoder.encode(userRegisterRequest.getPassword()));
         User savedUser = userRepository.save(user);
+        folderService.createInBoxFolder(user);
         return userResponseMapper.userToUserRegisterResponse(user);
     }
 

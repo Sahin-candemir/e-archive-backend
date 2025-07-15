@@ -22,4 +22,8 @@ public interface FolderService {
     FolderContentDto findSubFoldersAndFiles(Long id);
 
     Optional<Folder> getFolderByFolderIdAndUser(Long folderId, User currentUser);
+
+    Folder getInBoxFolderByUser(User user);
+
+    Folder createInBoxFolder(User user);
 }

@@ -9,8 +9,17 @@ import java.util.Set;
 public class Folder extends BaseEntity{
 
     private String name;
+
     private boolean isInBox;
-    
+
+    public boolean isInBox() {
+        return isInBox;
+    }
+
+    public void setInBox(boolean inBox) {
+        isInBox = inBox;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Folder parent;
@@ -42,9 +51,10 @@ public class Folder extends BaseEntity{
         this.files = files;
     }
 
-    public Folder(String name, Folder parent, List<Folder> children, User user, Set<File> files) {
+    public Folder(String name, Folder parent, List<Folder> children, User user, Set<File> files, Boolean isInBox) {
         this.name = name;
         this.parent = parent;
+        this.isInBox = isInBox;
         this.children = children;
         this.user = user;
         this.files = files;

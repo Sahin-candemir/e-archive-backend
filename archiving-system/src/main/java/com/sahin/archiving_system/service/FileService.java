@@ -24,4 +24,6 @@ public interface FileService {
     Page<FileResponse> getFilesWithPaginationAndSearch(User user, int page, int size, String search, Long folderId);
 
     File getFileByFileNameAndUser(User currentUser, String name) throws FileNotFoundException;
+
+    File getFileById(Long fileId) throws FileNotFoundException;
 }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.FileNotFoundException;
+
 @RestController
 @RequestMapping("/share")
 public class ShareController {
@@ -21,7 +23,7 @@ public class ShareController {
     }
 
     @PostMapping
-    public ResponseEntity<String> shareFile(@RequestBody ShareFileRequest shareFileRequest){
+    public ResponseEntity<String> shareFile(@RequestBody ShareFileRequest shareFileRequest) throws FileNotFoundException {
         shareService.shareFile(shareFileRequest);
         return new ResponseEntity<>("File sent successfully.", HttpStatus.OK);
     }
