@@ -14,3 +14,4 @@ server:
 security:
   jwt:
     secret-key: ${SECURITY_JWT_SECRET_KEY}
+    expiration-time: ${SECURITY_JWT_EXPIRATION_TIME}
