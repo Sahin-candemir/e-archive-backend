@@ -1,16 +1,10 @@
-FROM maven:3.8.5-jdk-17 AS build
+FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
-COPY pom.xml .
-COPY src /app/src
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
 
-RUN mvn clean package -DskipTests
+EXPOSE 8080
 
-FROM openjdk:17-jre
-
-WORKDIR /app
-
-COPY --from=build /app/target/*.jar app.jar
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","/app/app.jar"]
